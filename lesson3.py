@@ -1,47 +1,50 @@
 #Программа читает файл data03.txt, и шифрует шифром Виженера с ключом KEY
 nameIN="data03.txt"
+nameOF="Зашифрованный текст.txt"
 
 KEY='ВИЖЕНЕР'
 ABC='АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ '
 
-#conv1 это функция замены каждого символа текста ее номером в алфавите, начиная с 0
-def conv1(text):
-    return list(map(ABC.index, text))
 
-#conv2 это функция замены порядкого номера на символ
-def conv2(textD):
-    return "".join([ABC[s] for s in textD])
+with open(nameOF, mode='x', encoding="utf-8") as fOF:
+    #conv1 это функция замены каждого символа текста ее номером в алфавите, начиная с 0
+    def conv1(text):
+        return list(map(ABC.index, text))
 
-#Чтение данных, данные помещаются в переменную text в виде строки str
-with open(nameIN, encoding="utf-8") as fIF:
-    text=fIF.read()
+    #conv2 это функция замены порядкого номера на символ
+    def conv2(textD):
+        return "".join([ABC[s] for s in textD])
 
-#В переменной textD содержится открытый текст
-#Каждый символ заменен на числа(порядковый номер в алфавите)
-#KEYD это преобразованный ключ
-textD=conv1(text)
-KEYD=conv1(KEY)
+    #Чтение данных, данные помещаются в переменную text в виде строки str
+    with open(nameIN, encoding="utf-8") as fIF:
+        text=fIF.read()
 
-text1=conv2(textD)
-assert text==text1
+    #В переменной textD содержится открытый текст
+    #Каждый символ заменен на числа(порядковый номер в алфавите)
+    #KEYD это преобразованный ключ
+    textD=conv1(text)
+    KEYD=conv1(KEY)
 
-print(text[:100])
-print(list(text[:100]))
-print(textD[:100])
-print(text1[:100])
+    text1=conv2(textD)
+    assert text==text1
 
-del text1
+    print(text[:100])
+    print(list(text[:100]))
+    print(textD[:100])
+    print(text1[:100])
 
-#Зашифрование кодом Виженера текста
-#k это ключ в цифровой форме, t это текст в цифровой форме
-#В цифровой форме-в виде списка значений типа int от 0 до len(ABC)-1 включительно
-def codeD(k, t):
-    return [(k[i%len(k)]-t[i])%len(ABC) for i in range(len(t))]
+    del text1
 
-code1=codeD(KEYD, textD)
-print(conv2(code1[:100]))
+    #Зашифрование кодом Виженера текста
+    #k это ключ в цифровой форме, t это текст в цифровой форме
+    #В цифровой форме-в виде списка значений типа int от 0 до len(ABC)-1 включительно
+    def codeD(k, t):
+        return [(k[i%len(k)]-t[i])%len(ABC) for i in range(len(t))]
 
-code2=codeD(KEYD, code1)
-print(conv2(code2[:100]))
+    code1=codeD(KEYD, textD)
+    print(conv2(code1), file=fOF)
+
+    code2=codeD(KEYD, code1)
+    print(conv2(code2[:100]))
 
 

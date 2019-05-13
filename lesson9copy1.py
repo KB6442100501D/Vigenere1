@@ -1,12 +1,13 @@
 import time
 t_beg=time.time()
 
-nameIN="data03.txt"
-nameOF="Повторы"
+nameIN="Зашифрованный текст.txt"
+nameOF="Повторы зашифрованного текста.txt"
+
+d=dict()
 
 with open(nameIN, encoding="utf-8") as fIF:
     text=fIF.read()
-
 
 with open(nameOF, mode='x', encoding="utf-8") as fOF:
     n=len(text)
@@ -24,9 +25,12 @@ with open(nameOF, mode='x', encoding="utf-8") as fOF:
                     i+=1
                     j+=1
             if c>=3:
+                dp=p2-p1
+                d[dp]=d.get(dp, 0)+1
                 print(c, p1, p2, repr(text[p1:p1+c]), file=fOF)
-
-
+    print(72*"-", file=fOF)
+    for k,v in sorted(d.items()):
+        print(k,v, file=fOF)
 t_end=time.time()
 print(t_end-t_beg)
 

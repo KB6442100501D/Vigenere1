@@ -11,15 +11,18 @@ with open(nameIN, encoding="utf-8") as fIF:
 
 n=len(text)
 for p1 in range(n):
-    c=0
-    i=p1
-    while j<n:
-        if text[i]!=text[j]:
-            break
-        else:
-            c+=1
-            i+=1
-            j+=1
+    for p2 in range(p1+1, n):
+        assert p1<p2
+        c=0
+        i=p1
+        j=p2
+        while j<n:
+            if text[i]!=text[j]:
+                break
+            else:
+                c+=1
+                i+=1
+                j+=1
 ##        if c>=3:
 ##            print(c, p1, p2, repr(text[p1:p1+c]))
 
