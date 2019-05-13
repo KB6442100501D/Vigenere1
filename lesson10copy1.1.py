@@ -2,7 +2,7 @@ import time
 t_beg=time.time()
 
 nameIN="Зашифрованный текст.txt"
-nameOF="Повторы зашифрованного текста без условия.txt"
+nameOF="Повторы зашифрованного текста с условием.txt"
 
 
 import hashlib
@@ -42,7 +42,8 @@ pdd1=PDD()
 
 d1=dict()
 d2=dict()
-l=[]
+lwo=[]
+lwc=[]
 l1=[]
 s1=set()
 
@@ -70,13 +71,13 @@ with open(nameOF, mode='x', encoding="utf-8") as fOF:
                 d1[dp]=d1.get(dp, 0)+1
                 
                 l2.append((p2,dp))
-                
-                #if (p2-1,dp) not in s1:
-                l.append((dp, c))
+                lwo.append((dp, c))
+                if (p2-1,dp) not in s1:
+                    lwc.append((dp, c))
         l1=l2
         s1=set(l1)
         #l2=[]
-    print(l, file=fOF)
+##    print(lwc, file=fOF)
                 #print(c, p1, p2, repr(text[p1:p1+c]), file=fOF)
 #смещение и кол-во шт
 ##    print(72*"-", file=fOF)
@@ -85,8 +86,9 @@ with open(nameOF, mode='x', encoding="utf-8") as fOF:
 ##        print(k,v, file=fOF)
 ##        print(72*"-", file=fOF)
 ###    print(d2, file=fOF)
-
-
+swo=set(lwo)
+swc=set(lwc)
+print(len(lwo), len(lwc), len(swo), len(swc), swo==swc)
 
                 
 t_end=time.time()

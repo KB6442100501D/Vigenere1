@@ -2,7 +2,7 @@ import time
 t_beg=time.time()
 
 nameIN="Зашифрованный текст.txt"
-nameOF="Повторы зашифрованного текста без условия.txt"
+nameOF="Повторы зашифрованного текста с условием.txt"
 
 
 import hashlib
@@ -71,8 +71,8 @@ with open(nameOF, mode='x', encoding="utf-8") as fOF:
                 
                 l2.append((p2,dp))
                 
-                #if (p2-1,dp) not in s1:
-                l.append((dp, c))
+                if (p2-1,dp) not in s1:
+                    l.append((dp, c))
         l1=l2
         s1=set(l1)
         #l2=[]
